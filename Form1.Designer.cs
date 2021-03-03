@@ -142,6 +142,7 @@
             this.GvdTrackBar.Name = "GvdTrackBar";
             this.GvdTrackBar.Size = new System.Drawing.Size(204, 45);
             this.GvdTrackBar.TabIndex = 9;
+            this.GvdTrackBar.Scroll += new System.EventHandler(this.trackBarChange);
             // 
             // TvdTrackBar
             // 
@@ -149,6 +150,7 @@
             this.TvdTrackBar.Name = "TvdTrackBar";
             this.TvdTrackBar.Size = new System.Drawing.Size(204, 45);
             this.TvdTrackBar.TabIndex = 10;
+            this.TvdTrackBar.Scroll += new System.EventHandler(this.trackBarChange);
             // 
             // PvdTrackBar
             // 
@@ -156,6 +158,7 @@
             this.PvdTrackBar.Name = "PvdTrackBar";
             this.PvdTrackBar.Size = new System.Drawing.Size(204, 45);
             this.PvdTrackBar.TabIndex = 11;
+            this.PvdTrackBar.Scroll += new System.EventHandler(this.trackBarChange);
             // 
             // GndTrackBar
             // 
@@ -163,6 +166,7 @@
             this.GndTrackBar.Name = "GndTrackBar";
             this.GndTrackBar.Size = new System.Drawing.Size(204, 45);
             this.GndTrackBar.TabIndex = 12;
+            this.GndTrackBar.Scroll += new System.EventHandler(this.trackBarChange);
             // 
             // TndTrackBar
             // 
@@ -170,6 +174,7 @@
             this.TndTrackBar.Name = "TndTrackBar";
             this.TndTrackBar.Size = new System.Drawing.Size(204, 45);
             this.TndTrackBar.TabIndex = 13;
+            this.TndTrackBar.Scroll += new System.EventHandler(this.trackBarChange);
             // 
             // PndTrackBar
             // 
@@ -177,6 +182,7 @@
             this.PndTrackBar.Name = "PndTrackBar";
             this.PndTrackBar.Size = new System.Drawing.Size(204, 45);
             this.PndTrackBar.TabIndex = 14;
+            this.PndTrackBar.Scroll += new System.EventHandler(this.trackBarChange);
             // 
             // PkTrackBar
             // 
@@ -184,6 +190,7 @@
             this.PkTrackBar.Name = "PkTrackBar";
             this.PkTrackBar.Size = new System.Drawing.Size(204, 45);
             this.PkTrackBar.TabIndex = 15;
+            this.PkTrackBar.Scroll += new System.EventHandler(this.trackBarChange);
             // 
             // NTextBox
             // 

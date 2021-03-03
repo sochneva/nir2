@@ -46,6 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataModel.cs" />
+    <Compile Include="DataModels\ParamFunction.cs" />
+    <Compile Include="DataModels\SimpleFunction.cs" />
     <Compile Include="FileManager.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -82,26 +85,90 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataFiles\Рисунок1.txt" />
-    <Content Include="DataFiles\Рисунок2 верхняя.txt" />
-    <Content Include="DataFiles\Рисунок2 нижняя.txt" />
-    <Content Include="DataFiles\Рисунок3 1.txt" />
-    <Content Include="DataFiles\Рисунок3 2.txt" />
-    <Content Include="DataFiles\Рисунок3 3.txt" />
-    <Content Include="DataFiles\Рисунок3 4.txt" />
-    <Content Include="DataFiles\Рисунок3 5.txt" />
-    <Content Include="DataFiles\Рисунок3 6.txt" />
-    <Content Include="DataFiles\Рисунок3 7.txt" />
-    <Content Include="DataFiles\Рисунок4 1.txt" />
-    <Content Include="DataFiles\Рисунок4 2.txt" />
-    <Content Include="DataFiles\Рисунок4 3.txt" />
-    <Content Include="DataFiles\Рисунок4 4.txt" />
-    <Content Include="DataFiles\Рисунок5.txt" />
-    <Content Include="DataFiles\Рисунок6 1.txt" />
-    <Content Include="DataFiles\Рисунок6 2.txt" />
-    <Content Include="DataFiles\Рисунок6 3.txt" />
-    <Content Include="DataFiles\Рисунок6 4.txt" />
-    <Content Include="DataFiles\Рисунок6 5.txt" />
+    <Content Include="DataFiles\N%28Dnd%29\N%28Dnd%29.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Dvd%29\N%28Dvd%29.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Pk%29\N%28Pk%29 p1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Pk%29\N%28Pk%29 p2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Pk%29\N%28Pk%29 p3.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Pk%29\N%28Pk%29 p4.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Pk%29\N%28Pk%29 p5.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Pk%29\N%28Pk%29 p6.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Pk%29\param.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Pvd%29\N%28Pvd%29 p1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Pvd%29\N%28Pvd%29 p2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Pvd%29\N%28Pvd%29 p3.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Pvd%29\param.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Tnd%29\N%28Tnd%29 p1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Tnd%29\N%28Tnd%29 p2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Tnd%29\N%28Tnd%29 p3.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Tnd%29\N%28Tnd%29 p4.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Tnd%29\N%28Tnd%29 p5.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Tnd%29\param.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Tvd%29\N%28Tvd%29 p1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Tvd%29\N%28Tvd%29 p2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Tvd%29\N%28Tvd%29 p3.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Tvd%29\N%28Tvd%29 p4.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Tvd%29\N%28Tvd%29 p5.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Tvd%29\N%28Tvd%29 p6.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Tvd%29\N%28Tvd%29 p7.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Tvd%29\N%28Tvd%29 p8.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\N%28Tvd%29\param.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

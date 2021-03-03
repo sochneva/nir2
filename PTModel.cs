@@ -9,16 +9,16 @@ namespace nir2
     class PTModel
     {
         private Dictionary<string, string> FilenameData = new Dictionary<string, string>(); //пути к файлам с данными для расчета 
-        private Dictionary<string, double[,]> Data { get; set; } = new Dictionary<string, double[,]>();   //данные для расчета
+        private Dictionary<string, DataModel> Data { get; set; } = new Dictionary<string, DataModel>();   //данные для расчета
 
         #region inputParam
-        private double FlowHighSteam { get; set; }                          //Расход пара высокого давления
-        private double PressureHighSteam { get; set; }                      //Давление пара высокого давления
-        private double TemperatureHighSteam { get; set; }                   //Температура пара высокого давления
-        private double FlowLowSteam { get; set; }                           //Расход пара низкого давления
-        private double PressureLowSteam { get; set; }                       //Давление пара низкого давления
-        private double TemperatureLowSteam { get; set; }                    //Температура пара низкого давления
-        private double PressureCondenser { get; set; }                      //Давление пара в конденсаторе
+        private double FlowHighSteam { get; set; }                                  //Расход пара высокого давления
+        private double PressureHighSteam { get; set; } = PVD[0];                    //Давление пара высокого давления
+        private double TemperatureHighSteam { get; set; } = TVD[0];                 //Температура пара высокого давления
+        private double FlowLowSteam { get; set; }                                   //Расход пара низкого давления
+        private double PressureLowSteam { get; set; }                               //Давление пара низкого давления
+        private double TemperatureLowSteam { get; set; } = TND[0];                  //Температура пара низкого давления
+        private double PressureCondenser { get; set; } = PK[0];                     //Давление пара в конденсаторе
         #endregion
 
         #region outputParam
@@ -34,56 +34,60 @@ namespace nir2
         private double DefPressureLowSteam { get; } = 206;                     //Давление пара низкого давления
         private double DefTemperatureLowSteam { get; } = 0.542;                //Температура пара низкого давления
         private double DefPressureCondenser { get; } = 0.1275;                 //Давление пара в конденсаторе
+
+        #endregion
+
+        #region inputRangeParam
+
+        public static double[] TVD { get; set; } = FileManager.ReadParam(AppDomain.CurrentDomain.BaseDirectory + @"DataFiles\N(Tvd)\param.txt");
+        public static double[] PVD { get; set; } = FileManager.ReadParam(AppDomain.CurrentDomain.BaseDirectory + @"DataFiles\N(Pvd)\param.txt");
+        public static double[] TND { get; set; } = FileManager.ReadParam(AppDomain.CurrentDomain.BaseDirectory + @"DataFiles\N(tnd)\param.txt");
+        public static double[] PK { get; set; } = FileManager.ReadParam(AppDomain.CurrentDomain.BaseDirectory + @"DataFiles\N(Pk)\param.txt");
+
         #endregion
 
         public PTModel()
         {
-            string filenameBase = AppDomain.CurrentDomain.BaseDirectory;
+            string filenameBase = AppDomain.CurrentDomain.BaseDirectory + @"DataFiles\";
 
-            FilenameData.Add("G(dPin)", filenameBase + @"DataFiles\G(dPin).txt");
-            FilenameData.Add("G(Ngtu)", filenameBase + @"DataFiles\G(Ngtu).txt");
-            FilenameData.Add("dPinTrackBar", filenameBase + @"DataFiles\N(dPin).txt");
-            FilenameData.Add("TnvTrackBar", filenameBase + @"DataFiles\N(Tnv).txt");
-            FilenameData.Add("PnvTrackBar", filenameBase + @"DataFiles\N,G(Pnv).txt");
-            FilenameData.Add("dPoutTrackBar", filenameBase + @"DataFiles\N,Nu(dPout).txt");
-            FilenameData.Add("Nu(dPin)", filenameBase + @"DataFiles\Nu(dPin).txt");
-            FilenameData.Add("NgtuTrackBar", filenameBase + @"DataFiles\Nu(Ngtu).txt");
-            FilenameData.Add("Nu(Tnv)", filenameBase + @"DataFiles\Nu(Tnv).txt");
-            FilenameData.Add("T(dPin)", filenameBase + @"DataFiles\T(dPin).txt");
-            FilenameData.Add("T(dPout)", filenameBase + @"DataFiles\T(dPout).txt");
-            FilenameData.Add("T(Ngtu)", filenameBase + @"DataFiles\T(Ngtu).txt");
-            FilenameData.Add("T(Tnv)", filenameBase + @"DataFiles\T(Tnv).txt");
-            FilenameData.Add("tTrackBar", filenameBase + @"DataFiles\t.txt");
+            FilenameData.Add("N(Dnd)", filenameBase + "N(Dnd)");
+            FilenameData.Add("N(Dvd)", filenameBase + "N(Dvd)");
+            FilenameData.Add("N(Pk)", filenameBase + "N(Pk)");
+            FilenameData.Add("N(Pvd)", filenameBase + "N(Pvd)");
+            FilenameData.Add("N(Tnd)", filenameBase + "N(Tnd)");
+            FilenameData.Add("N(Tvd)", filenameBase + "N(Tvd)");
 
             foreach (var x in FilenameData)
                 Data.Add(x.Key, FileManager.ReadFromFile(x.Value));
+
         }
 
         public void updateParam(string name, int value)
         {
-            double newValue = Data[name][0, 0] + value * (Data[name][0, Data[name].GetLength(1) - 1] - Data[name][0, 0]) / 100;
+            double newValue = 1;
+
             switch (name)
             {
                 case "GvdTrackBar":
-                    FlowHighSteam = newValue;
+                    FlowHighSteam = Data["N(Dvd)"].GetData()[0, 0] + value * (Data["N(Dvd)"].GetData()[0, Data["N(Dvd)"].GetData().GetLength(1) - 1] - Data["N(Dvd)"].GetData()[0, 0]) / 100;
                     break;
                 case "TvdTrackBar":
-                    PressureHighSteam = newValue;
+                    TemperatureHighSteam = TVD[value];
                     break;
                 case "PvdTrackBar":
-                    TemperatureHighSteam = newValue;
+                    PressureHighSteam =  PVD[value];
                     break;
                 case "GndTrackBar":
-                    FlowLowSteam = newValue;
+                    FlowLowSteam = Data["N(Dnd)"].GetData()[0, 0] + value * (Data["N(Dnd)"].GetData()[0, Data["N(Dnd)"].GetData().GetLength(1) - 1] - Data["N(Dnd)"].GetData()[0, 0]) / 100;
                     break;
                 case "TndTrackBar":
-                    PressureLowSteam = newValue;
+                    TemperatureLowSteam = TND[value]; 
                     break;
                 case "PndTrackBar":
-                    TemperatureLowSteam = newValue;
+                    PressureLowSteam = newValue;// не используется
                     break;
                 case "PkTrackBar":
-                    PressureCondenser = newValue;
+                    PressureCondenser = PK[value];
                     break;
             }
 
@@ -91,19 +95,18 @@ namespace nir2
 
         private double calculateGrossPower()
         {
-            return 1.0;
-            /*return DefN * Interpolation(OperatingTime, Data["tTrackBar"]) * Interpolation(StrainGTU, Data["NgtuTrackBar"])
-                * Interpolation(OutdoorAirTemperature, Data["TnvTrackBar"]) * Interpolation(OutdoorAirPressure, Data["PnvTrackBar"])
-                * Interpolation(PressureLossIn, Data["dPinTrackBar"]) * Interpolation(PressureLossOut, Data["dPoutTrackBar"]);*/
+            return FlowHighSteam + FlowLowSteam;
         }
 
         private double calculateConsumptionSteam()
         {
-            return 1.0;
-            /*
-            return DefNu * Interpolation(OperatingTime, Data["tTrackBar"]) * Interpolation(StrainGTU, Data["NgtuTrackBar"])
-                * Interpolation(OutdoorAirTemperature, Data["TnvTrackBar"]) * Interpolation(PressureLossIn, Data["dPinTrackBar"])
-                * Interpolation(PressureLossOut, Data["dPoutTrackBar"]);*/
+            double defN = Interpolation(FlowHighSteam, Data["N(Dvd)"].GetData());
+            double deltaVP = Interpolation(FlowHighSteam, Data["N(Pvd)"].GetData(PressureHighSteam));
+            double deltaVT = Interpolation(FlowHighSteam, Data["N(Tvd)"].GetData(TemperatureHighSteam));
+            double deltaNT = Interpolation(FlowLowSteam, Data["N(Tnd)"].GetData(TemperatureLowSteam));
+            double deltaNRT = Interpolation(FlowLowSteam, Data["N(Dnd)"].GetData());
+            double deltaNRP = Interpolation(FlowHighSteam + FlowLowSteam, Data["N(Pk)"].GetData(PressureCondenser));
+            return defN + defN + deltaVP+ deltaVT+ deltaNT+ deltaNRT + deltaNRP;
         }
 
         private double Interpolation(double x, double[,] arr)
@@ -112,5 +115,6 @@ namespace nir2
             while (x > arr[0, i] && i < arr.GetLength(1) - 2) i++;
             return (arr[1, i + 1] - arr[1, i]) / (arr[0, i + 1] - arr[0, i]) * (x - arr[0, i + 1]) + arr[1, i];
         }
+
     }
 }
